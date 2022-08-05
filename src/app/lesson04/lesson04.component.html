@@ -1,0 +1,57 @@
+<div class="main-block">
+    <div class="main-block__backgr" [style]="checkVisbl?visible:hidden">
+        <div class="add-window" [style]="checkVisbl?visible:hidden">
+            <div class="add-window__heading">
+                <span>Add phone</span>
+                <button (click)="closeAddWindow(); visibility()">x</button>
+            </div>
+            <div class="add-window__inp-fld">
+                <input type="text" placeholder="first name goes here" [(ngModel)]="addFN">
+                <input type="text" placeholder="second name goes here" [(ngModel)]="addSN">
+                <input type="text" placeholder="number phone goes here" [(ngModel)]="addPN">
+            </div>
+            <div class="add-window__btn-fld">
+                <button class="save-btn" (click)="checkSaveBtn?addName():updateName(); visibility()">save</button>
+            </div>
+        </div>
+    </div>
+    <div class="main-block__heading"><span>My phone book!</span></div>
+    <div class="main-block__inp-and-add-btn">
+        <input type="text" placeholder="search text goes here" [(ngModel)]="field">
+        <button (click)="addPhone(); visibility()">add phone</button>
+    </div>
+    <div class="main-block__tbldiv">
+        <table>
+            <tr>
+                <th><button class="btn-fn" (click)="bGrStatus1(); changeSort('bgStatus1')">First name
+                        <div class="img-fn" [style]="backGrStatus1?backUp:backDown && backGrVisibl1?visible:bgHidden">
+                        </div>
+                    </button>
+                </th>
+                <th><button class="btn-ln" (click)="bGrStatus2(); changeSort('bgStatus2')">Last name
+                        <div class="img-ln" [style]="backGrStatus2?backUp:backDown && backGrVisibl2?bgVisible:bgHidden">
+                        </div>
+                    </button></th>
+                <th><button class="btn-pn" (click)="bGrStatus3(); changeSort('bgStatus3')">Number
+                        <div class="img-pn" [style]="backGrStatus3?backUp:backDown && backGrVisibl3?bgVisible:bgHidden">
+                        </div>
+                    </button></th>
+                <th><b>edit</b></th>
+                <th><b>Delete</b></th>
+            </tr>
+            <ng-container *ngFor="let user of arrUser | sort:type | search:field; index as i">
+                <tr>
+                    <td>{{ user.name | titlecase }}</td>
+                    <td>{{ user.surname | titlecase }}</td>
+                    <td>{{ user.number }}</td>
+                    <td>
+                        <button class="btn-edit" (click)="editAdd(i)">Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn-dlt" (click)="deleteName(i)">delete</button>
+                    </td>
+                </tr>
+            </ng-container>
+        </table>
+    </div>
+</div>
